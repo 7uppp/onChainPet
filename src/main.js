@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
 
 
-import DinoSprite from './DinoSprite'
+import GameScene from './GameScene'
 
 const config = {
 	type: Phaser.AUTO,
@@ -15,7 +15,7 @@ const config = {
 		},
 	},
 	transparent: true,
-	scene: [DinoSprite],
+	scene: [GameScene],
 }
 
 export default new Phaser.Game(config)
