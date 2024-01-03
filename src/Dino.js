@@ -43,6 +43,8 @@ export default class Dino {
     Dino.setScale(4)
     // 创建动画
     this.createAnimations()
+    // 创建血条
+    this.createHealthText()
     return Dino
   }
 
