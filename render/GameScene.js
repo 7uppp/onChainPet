@@ -2,6 +2,7 @@ import * as Phaser from "phaser"
 import Dino from "./Dino"
 import Fireball from "./FireBall"
 
+
 export default class GameScene extends Phaser.Scene {
 	constructor() {
 		super('GameScene')
@@ -19,6 +20,7 @@ export default class GameScene extends Phaser.Scene {
 		this.Fireball = new Fireball(this)
 		this.cursors = this.input.keyboard.createCursorKeys()
 		this.Wkey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
+
 
 
 

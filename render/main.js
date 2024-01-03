@@ -1,7 +1,6 @@
 import Phaser from 'phaser'
-
-
 import GameScene from './GameScene'
+
 
 const config = {
 	type: Phaser.AUTO,

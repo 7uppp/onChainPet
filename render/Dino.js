@@ -94,7 +94,7 @@ export default class Dino {
   }
 
   createHealthText () {
-    this.healthText = this.scene.add.text(16, 16, 'Health: 100', { fontSize: '32px', fill: '#000' })
+    this.healthText = this.scene.add.text(36, 16, 'Health: 100', { fontSize: '32px', fill: '#000' })
     this.healthText.setScrollFactor(0)
   }
 
