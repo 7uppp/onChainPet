@@ -1,7 +1,5 @@
 import { app, BrowserWindow } from 'electron'
 
-
-
 function createWindow () {
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -9,9 +7,10 @@ function createWindow () {
     frame: false,
     transparent: true,
     webPreferences: {
-      contextIsolation: false,
+      contextIsolation: true,
       nodeIntegration: true,
     },
+    titleBarStyle: 'hidden',
   })
 
   mainWindow.loadURL('http://localhost:8000/')
@@ -20,14 +19,20 @@ function createWindow () {
     mainWindow.webContents.insertCSS('::-webkit-scrollbar { display: none; }')
   })
 
+
+  //hide title bar when unfocused
+  mainWindow.on('blur', () => {
+    mainWindow.setBackgroundColor('#00000000')
+  })
+
+  //hide title bar when focused
+  mainWindow.on('focus', () => {
+    mainWindow.setBackgroundColor('#00000000')
+  })
+
 }
 
-
-
-
 app.whenReady().then(createWindow)
-
-
 
 app.on('activate', function () {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
