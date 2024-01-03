@@ -1,7 +1,7 @@
-import * as Phaser from "phaser"
+import Phaser from "phaser"
 import Dino from "./Dino"
 import Fireball from "./FireBall"
-
+import Button from "./Button"
 
 export default class GameScene extends Phaser.Scene {
 	constructor() {
@@ -20,15 +20,17 @@ export default class GameScene extends Phaser.Scene {
 		this.Fireball = new Fireball(this)
 		this.cursors = this.input.keyboard.createCursorKeys()
 		this.Wkey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
-
-
-
+		const button = new Button(400, 300, 'say hi', this, () => { console.log('hi') })
 
 	}
+
+
+
 
 	update () {
 		this.Dino.update()
 		if (this.Wkey.isDown) {
+			// this.showGameOver()
 			this.Fireball.fire(this.Dino)
 		}
 	}
