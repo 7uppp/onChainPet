@@ -28,6 +28,7 @@ export default class Dino {
     Dino.setCollideWorldBounds(true)
     Dino.setInteractive()
     this.scene.input.setDraggable(Dino)
+
     // 当开始拖拽时
     Dino.on('dragstart', () => {
       Dino.body.setAllowGravity(false) // 暂停重力影响
@@ -39,6 +40,7 @@ export default class Dino {
       gameObject.x = dragX
       gameObject.y = dragY
     })
+
 
     // 当拖拽结束时
     Dino.on('dragend', () => {

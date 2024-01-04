@@ -18,8 +18,9 @@
 	},
 	"dependencies": {
 		"@esotericsoftware/spine-phaser": "~4.1.0",
-		"@walletconnect/web3wallet": "^1.10.0",
 		"electron": "^28.1.0",
-		"phaser": "^3.70.0"
+		"phaser": "^3.70.0",
+		"@web3modal/ethers5": "3.6.0-0dbdeb8c",
+		"ethers": "5.7.2"
 	}
 }

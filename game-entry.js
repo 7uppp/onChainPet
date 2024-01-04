@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron'
+import { app, BrowserWindow, screen, } from 'electron'
 
 function createWindow () {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
@@ -18,6 +18,7 @@ function createWindow () {
   })
 
   mainWindow.loadURL('http://localhost:8000/')
+  // mainWindow.webContents.openDevTools()
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.insertCSS('::-webkit-scrollbar { display: none; }')
   })
