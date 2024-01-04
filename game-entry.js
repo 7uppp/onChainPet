@@ -1,23 +1,27 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, screen } from 'electron'
 
 function createWindow () {
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
+
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     frame: false,
+    x: width - 800,
+    y: height - 600,
     transparent: true,
     webPreferences: {
-      contextIsolation: true,
+      contextIsolation: false,
       nodeIntegration: true,
     },
     titleBarStyle: 'hidden',
   })
 
   mainWindow.loadURL('http://localhost:8000/')
-
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.webContents.insertCSS('::-webkit-scrollbar { display: none; }')
   })
+
 
 
   //hide title bar when unfocused
@@ -33,6 +37,7 @@ function createWindow () {
 }
 
 app.whenReady().then(createWindow)
+
 
 app.on('activate', function () {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()

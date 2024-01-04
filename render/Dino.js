@@ -3,6 +3,10 @@ export default class Dino {
     this.scene = scene
     this.sprite = this.createDino()
     this.dinoDirection = 'right'
+    this.isHealthTextVisible = false
+
+    this.sprite.on('pointerover', this.showHealthText, this)
+    this.sprite.on('pointerout', this.hideHealthText, this)
 
     //add attributes
     this.health = 100
@@ -46,6 +50,18 @@ export default class Dino {
     // 创建血条
     this.createHealthText()
     return Dino
+  }
+
+  showHealthText () {
+    // 当鼠标悬停在恐龙上时，显示健康文本
+    this.isHealthTextVisible = true
+    this.healthText.setVisible(true)
+  }
+
+  hideHealthText () {
+    // 当鼠标移出恐龙时，隐藏健康文本
+    this.isHealthTextVisible = false
+    this.healthText.setVisible(false)
   }
 
   createAnimations () {
@@ -94,7 +110,7 @@ export default class Dino {
   }
 
   createHealthText () {
-    this.healthText = this.scene.add.text(36, 16, 'Health: 100', { fontSize: '32px', fill: '#000' })
+    this.healthText = this.scene.add.text(500, 400, 'Health: 100', { fontSize: '16px', fill: 'white' })
     this.healthText.setScrollFactor(0)
   }
 

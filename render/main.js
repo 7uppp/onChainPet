@@ -17,4 +17,5 @@ const config = {
 	scene: [GameScene],
 }
 
+
 export default new Phaser.Game(config)
