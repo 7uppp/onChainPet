@@ -4,7 +4,7 @@ export default class Button {
       .setOrigin(0.5)
       .setPadding(10)
       .setStyle({ backgroundColor: 'blue' })
-      .setInteractive({ useHandCursor: true })
+      .setInteractive()
       .on('pointerdown', () => callback())
       .on('pointerover', () => this.button.setStyle({ fill: '#f39c12' }))
       .on('pointerout', () => this.button.setStyle({ fill: '#FFF' }))
