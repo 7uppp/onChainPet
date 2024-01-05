@@ -2,13 +2,19 @@ import Phaser from "phaser"
 import Dino from "./Dino"
 import Fireball from "./FireBall"
 import Button from "./Button"
-import { modal, getWalletState } from "./WalletConnect"
+import { modal } from "./WalletConnect"
 
 export default class GameScene extends Phaser.Scene {
 	constructor() {
 		super('GameScene')
 		this.Dino = null
 		this.Fireball = null
+		this.modal = modal
+		this.address = null
+		this.modal.subscribeProvider(({ provider, providerType, address, chainId, isConnected }) => {
+			this.address = address
+			this.button && this.setButtonText(address ? address.slice(0, 3) + '...' + address.slice(-2) : 'connect')
+		})
 	}
 
 	preload () {
@@ -28,12 +34,11 @@ export default class GameScene extends Phaser.Scene {
 		// eslint-disable-next-line no-unused-vars
 		this.button = new Button(400, 300, 'connect', this, async () => {
 			try {
-				const { isConnected, address } = await getWalletState()
-				if (isConnected) {
-					this.button.setText(address.slice(0, 3) + '...' + address.slice(-2))
+				if (!this.modal.getIsConnected()) {
+					this.modal.open()
 				}
-				if (!isConnected) {
-					this.button.setText('connect')
+				else {
+					this.modal.disconnect()
 				}
 			}
 			catch (error) {
@@ -47,8 +52,6 @@ export default class GameScene extends Phaser.Scene {
 			cursor.x = pointer.x
 			cursor.y = pointer.y
 		}, this)
-
-
 	}
 
 	update () {
@@ -57,5 +60,9 @@ export default class GameScene extends Phaser.Scene {
 			// this.showGameOver()
 			this.Fireball.fire(this.Dino)
 		}
+	}
+
+	setButtonText (text) {
+		this.button.setText(text)
 	}
 }
