@@ -58,17 +58,29 @@ export const modal = createWeb3Modal({
   themeMode: 'light',
 })
 
-
-export async function connectWallet () {
-  try {
-    const walletProvider = modal.getWalletProvider()
-    const ethersProvider = new ethers.providers.Web3Provider(walletProvider)
-
-    // 获取钱包地址
-    const signer = ethersProvider.getSigner()
-    const address = await signer.getAddress()
+function handleChange ({ provider, address }) {
+  if (provider) {
     console.log('Connected address:', address)
-  } catch (error) {
-    console.error('Error connecting to wallet:', error)
+  }
+  else {
+    console.log('Disconnected')
   }
 }
+
+
+export async function getWalletState () {
+  const walletProvider = modal.getWalletProvider()
+  if (!walletProvider) {
+    throw new Error('No wallet provider')
+  }
+
+  // 获取钱包地址
+  const ethersProvider = new ethers.providers.Web3Provider(walletProvider)
+  const signer = await ethersProvider.getSigner()
+  const address = await signer.getAddress()
+  console.log('Connected address:', address)
+  modal.subscribeProvider(handleChange)
+
+}
+
+

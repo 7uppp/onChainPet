@@ -2,7 +2,8 @@ import Phaser from "phaser"
 import Dino from "./Dino"
 import Fireball from "./FireBall"
 import Button from "./Button"
-import { modal, connectWallet } from "./WalletConnect"
+import { modal, getWalletState } from "./WalletConnect"
+
 
 
 
@@ -35,7 +36,7 @@ export default class GameScene extends Phaser.Scene {
 			cursor.x = pointer.x
 			cursor.y = pointer.y
 		}, this)
-		connectWallet()
+		getWalletState()
 
 	}
 
