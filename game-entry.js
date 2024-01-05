@@ -1,5 +1,7 @@
 import { app, BrowserWindow, screen, } from 'electron'
 
+
+
 function createWindow () {
   const { width, height } = screen.getPrimaryDisplay().workAreaSize
 
@@ -43,3 +45,4 @@ app.whenReady().then(createWindow)
 app.on('activate', function () {
   if (BrowserWindow.getAllWindows().length === 0) createWindow()
 })
+

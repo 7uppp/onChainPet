@@ -4,9 +4,6 @@ import Fireball from "./FireBall"
 import Button from "./Button"
 import { modal, getWalletState } from "./WalletConnect"
 
-
-
-
 export default class GameScene extends Phaser.Scene {
 	constructor() {
 		super('GameScene')
@@ -29,14 +26,28 @@ export default class GameScene extends Phaser.Scene {
 		this.cursors = this.input.keyboard.createCursorKeys()
 		this.Wkey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
 		// eslint-disable-next-line no-unused-vars
-		const button = new Button(400, 300, 'connect', this, () => { modal.open() })
+		this.button = new Button(400, 300, 'connect', this, async () => {
+			try {
+				const { isConnected, address } = await getWalletState()
+				if (isConnected) {
+					this.button.setText(address.slice(0, 3) + '...' + address.slice(-2))
+				}
+				if (!isConnected) {
+					this.button.setText('connect')
+				}
+			}
+			catch (error) {
+				console.log(error)
+			}
+		})
+
 		const cursor = this.add.image(0, 0, 'cursor')
 		cursor.setScale(0.3)
 		this.input.on('pointermove', function (pointer) {
 			cursor.x = pointer.x
 			cursor.y = pointer.y
 		}, this)
-		getWalletState()
+
 
 	}
 

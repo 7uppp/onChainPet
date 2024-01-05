@@ -9,6 +9,9 @@ export default class Button {
       .on('pointerover', () => this.button.setStyle({ fill: '#f39c12' }))
       .on('pointerout', () => this.button.setStyle({ fill: '#FFF' }))
 
+    this.setText = (newLabel) => {
+      this.button.setText(newLabel)
+    }
   }
 
 
