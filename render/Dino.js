@@ -9,8 +9,8 @@ export default class Dino {
     this.sprite.on('pointerout', this.hideHealthText, this)
 
     //add attributes
-    this.health = 100
-    this.growth = 0
+    this._health = 100
+    this._growth = 0
     this.decreaseHealthTimer = scene.time.addEvent({
       delay: 3600000, // 3600000 毫秒 = 1 小时
       callback: this.decreaseHealth,
@@ -117,18 +117,18 @@ export default class Dino {
   }
 
   updateHealthText () {
-    this.healthText.setText('Health: ' + this.health)
+    this.healthText.setText('Health: ' + this._health)
   }
 
   decreaseHealth () {
-    this.health -= 5
+    this._health -= 5
     this.updateHealthText()
-    if (this.health <= 0) {
+    if (this._health <= 0) {
       this.decreaseHealthTimer.remove()
       console.log('oh no, dino died :(')
     }
     else {
-      console.log('Dino health decreased by 5. Current health:', this.health)
+      console.log('Dino health decreased by 5. Current health:', this._health)
     }
   }
 }

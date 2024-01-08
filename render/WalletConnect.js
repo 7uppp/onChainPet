@@ -1,65 +1,46 @@
 import { createWeb3Modal, defaultConfig, } from '@web3modal/ethers5'
-import { ethers } from 'ethers'
+import { chains } from './data/chains.js'
 
-
-// @ts-expect-error 1. Get projectId
+// @ts-ignore
 const projectId = import.meta.env.VITE_PROJECT_ID
 if (!projectId) {
   throw new Error('VITE_PROJECT_ID is not set')
 }
 
-// 2. Create wagmiConfig
-const chains = [
-  {
-    chainId: 1,
-    name: 'Ethereum',
-    currency: 'ETH',
-    explorerUrl: 'https://etherscan.io',
-    rpcUrl: 'https://cloudflare-eth.com'
-  },
-  {
-    chainId: 42161,
-    name: 'Arbitrum',
-    currency: 'ETH',
-    explorerUrl: 'https://arbiscan.io',
-    rpcUrl: 'https://arb1.arbitrum.io/rpc'
-  },
-  {
-    chainId: 5,
-    name: 'Goerli',
-    currency: 'ETH',
-    explorerUrl: 'https://goerli.etherscan.io',
-    rpcUrl: 'https://rpc.ankr.com/eth_goerli'
-  },
-  {
-    chainId: 137,
-    name: 'Polygon',
-    currency: 'MATIC',
-    explorerUrl: 'https://polygonscan.com/',
-    rpcUrl: 'https://polygon.llamarpc.com'
+export default class WalletConnect {
+
+  constructor() {
+    this.ethersConfig = defaultConfig({
+      metadata: {
+        name: 'Web3Modal',
+        description: 'Web3Modal Laboratory',
+        url: 'https://web3modal.com',
+        icons: ['https://avatars.githubusercontent.com/u/37784886']
+      },
+      defaultChainId: 1,
+      rpcUrl: 'https://cloudflare-eth.com'
+    })
+    this.provider = null
+    this.signer = null
+    this.address = null
+    this.isConnected = false
+    this.walletProvider = null
+    this.chains = chains
+    this.web3Modal = createWeb3Modal({
+      ethersConfig: this.ethersConfig,
+      chains: this.chains,
+      projectId
+    })
+
   }
-]
 
-const ethersConfig = defaultConfig({
-  metadata: {
-    name: 'Web3Modal',
-    description: 'Web3Modal Laboratory',
-    url: 'https://web3modal.com',
-    icons: ['https://avatars.githubusercontent.com/u/37784886']
-  },
-  defaultChainId: 1,
-  rpcUrl: 'https://cloudflare-eth.com'
-})
-
-
-// 3. Create modal
-export const modal = createWeb3Modal({
-  ethersConfig,
-  projectId,
-  chains,
-  themeMode: 'light',
-})
-
+  defaultConfig (config) {
+    return config
+  }
+  getBalance () {
+    return this.signer.getBalance()
+  }
+}
 
 
 // export async function getWalletState () {
